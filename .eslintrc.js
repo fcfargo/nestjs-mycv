@@ -5,11 +5,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
     sourceType: 'module',
   },
-  plugins: [
-    '@typescript-eslint/eslint-plugin',
-    'unused-imports',
-    'sort-class-members',
-  ],
+  plugins: ['@typescript-eslint/eslint-plugin', 'unused-imports', 'sort-class-members'],
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:import/typescript',
@@ -46,11 +42,7 @@ module.exports = {
         'newlines-between': 'always',
       },
     ],
-    'lines-between-class-members': [
-      'error',
-      'always',
-      { exceptAfterSingleLine: true },
-    ],
+    'lines-between-class-members': ['error', 'always', { exceptAfterSingleLine: true }],
     'no-console': 'error',
     'unused-imports/no-unused-imports': 'error',
     'unused-imports/no-unused-vars': [

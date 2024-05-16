@@ -1,29 +1,32 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
-import { ReportsModule } from './reports/reports.module';
 import { ConfigModule } from '@nestjs/config';
-import { processEnv } from './common/constants';
-import { AppController } from './app.controller';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
-const dbPortNumber = parseInt(processEnv.DB_PORT);
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { processEnv } from './common/constants';
+import { ReportsModule } from './reports/reports.module';
+import { UsersModule } from './users/users.module';
+
+const dbPort = parseInt(processEnv.DB_PORT);
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: `.env.${process.env.NODE_ENV}`,
+      envFilePath: 'config/.env',
     }),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: processEnv.DB_HOST,
-      port: dbPortNumber,
-      username: processEnv.DB_USERNAME,
-      password: processEnv.DB_PASSWORD,
-      database: processEnv.DB_DATABASE,
-      entities: [],
-      synchronize: true,
+    TypeOrmModule.forRootAsync({
+      useFactory: () => ({
+        type: 'mysql',
+        host: processEnv.DB_HOST,
+        port: dbPort,
+        username: processEnv.DB_USERNAME,
+        password: processEnv.DB_PASSWORD,
+        database: processEnv.DB_DATABASE,
+        entities: [],
+        synchronize: true,
+      }),
     }),
     UsersModule,
     ReportsModule,

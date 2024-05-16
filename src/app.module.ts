@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { processEnv } from './common/constants';
+import { User } from './models/users.entity';
 import { ReportsModule } from './reports/reports.module';
 import { UsersModule } from './users/users.module';
 
@@ -23,8 +24,8 @@ const dbPort = parseInt(processEnv.DB_PORT);
         port: dbPort,
         username: processEnv.DB_USERNAME,
         password: processEnv.DB_PASSWORD,
-        database: processEnv.DB_DATABASE,
-        entities: [],
+        database: processEnv.DB_NAME,
+        entities: [User],
         synchronize: true,
       }),
     }),

@@ -1,15 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  NotFoundException,
-  Param,
-  Patch,
-  Post,
-  Query,
-  Session,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Session } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
 import { CreateUserDto, UpdateUserDto } from './dtos/users.dto';
@@ -27,10 +16,12 @@ export class UsersController {
 
   @Get('/whoami')
   whoAmI(@Session() session: any) {
-    if (!session.userId) {
-      throw new NotFoundException('need user login');
-    }
     return this.usersService.findOne(session.userId);
+  }
+
+  @Post('/signout')
+  signOut(@Session() session: any) {
+    session.userId = null;
   }
 
   @Post('/signup')

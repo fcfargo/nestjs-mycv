@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+
+import { User } from './users.entity';
 
 @Entity()
 export class Report {
@@ -25,4 +27,11 @@ export class Report {
 
   @Column()
   mileage: number;
+
+  @ManyToOne(() => User, (user) => user.reports, {
+    onDelete: 'SET NULL',
+    onUpdate: 'RESTRICT',
+  })
+  @JoinColumn([{ name: 'user_id', referencedColumnName: 'id' }])
+  user: User;
 }

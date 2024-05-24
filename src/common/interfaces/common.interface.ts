@@ -5,3 +5,8 @@ export interface ProcessEnv {
 export interface ClassConstructor {
   new (...args: any[]): object;
 }
+
+export interface SessionPayload {
+  id: number;
+  email: string;
+}

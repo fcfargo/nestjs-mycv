@@ -7,6 +7,9 @@ export class Report {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column({ default: false })
+  approved: boolean;
+
   @Column()
   price: number;
 
@@ -28,10 +31,13 @@ export class Report {
   @Column()
   mileage: number;
 
+  @Column({ nullable: true })
+  user_id: number | null;
+
   @ManyToOne(() => User, (user) => user.reports, {
     onDelete: 'SET NULL',
     onUpdate: 'RESTRICT',
   })
   @JoinColumn([{ name: 'user_id', referencedColumnName: 'id' }])
-  user: Pick<User, 'id' | 'email'>;
+  user: User;
 }

@@ -9,4 +9,5 @@ export interface ClassConstructor {
 export interface CurrentUserPayload {
   id: number;
   email: string;
+  admin: boolean;
 }

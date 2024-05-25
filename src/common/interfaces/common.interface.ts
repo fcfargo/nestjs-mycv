@@ -6,7 +6,7 @@ export interface ClassConstructor {
   new (...args: any[]): object;
 }
 
-export interface SessionPayload {
+export interface CurrentUserPayload {
   id: number;
   email: string;
 }

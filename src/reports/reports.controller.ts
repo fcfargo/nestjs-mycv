@@ -6,7 +6,7 @@ import { ReportsService } from './reports.service';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { Serialize } from '../common/decorators/serialize.decorator';
 import { AuthGuard } from '../common/guards/auth.guard';
-import { SessionPayload } from '../common/interfaces/common.interface';
+import { CurrentUserPayload } from '../common/interfaces/common.interface';
 
 @Controller('reports')
 @Serialize(ReportResponseDto)
@@ -15,7 +15,7 @@ export class ReportsController {
 
   @Post()
   @UseGuards(AuthGuard)
-  createReport(@Body() body: CreateReportDto, @CurrentUser() user: SessionPayload) {
+  createReport(@Body() body: CreateReportDto, @CurrentUser() user: CurrentUserPayload) {
     return this.reportsService.create(body, user);
   }
 }

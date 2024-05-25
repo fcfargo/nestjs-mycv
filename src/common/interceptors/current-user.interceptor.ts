@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Repository } from 'typeorm';
 
 import { User } from '../../models/users.entity';
-import { SessionPayload } from '../interfaces/common.interface';
+import { CurrentUserPayload } from '../interfaces/common.interface';
 
 @Injectable()
 export class CurrentUserInterceptor implements NestInterceptor {
@@ -18,11 +18,11 @@ export class CurrentUserInterceptor implements NestInterceptor {
       const user = await this.usersRepository.findOneBy({ id: userId });
       if (user) {
         const { id, email } = user;
-        const sessionPayload: SessionPayload = {
+        const CurrentUserPayload: CurrentUserPayload = {
           id,
           email,
         };
-        request.currentUser = sessionPayload;
+        request.currentUser = CurrentUserPayload;
       }
     }
 

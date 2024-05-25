@@ -18,7 +18,7 @@ import { UsersService } from './users.service';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { Serialize } from '../common/decorators/serialize.decorator';
 import { AuthGuard } from '../common/guards/auth.guard';
-import { SessionPayload } from '../common/interfaces/common.interface';
+import { CurrentUserPayload } from '../common/interfaces/common.interface';
 
 @Controller('auth')
 @Serialize(UserResponseDto)
@@ -30,7 +30,7 @@ export class UsersController {
 
   @Get('/whoami')
   @UseGuards(AuthGuard)
-  whoAmI(@CurrentUser() user: SessionPayload) {
+  whoAmI(@CurrentUser() user: CurrentUserPayload) {
     return user || null;
   }
 

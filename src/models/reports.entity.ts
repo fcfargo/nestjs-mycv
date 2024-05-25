@@ -1,7 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 import { User } from './users.entity';
-import { CurrentUserPayload } from '../common/interfaces/common.interface';
 
 @Entity()
 export class Report {
@@ -34,5 +33,5 @@ export class Report {
     onUpdate: 'RESTRICT',
   })
   @JoinColumn([{ name: 'user_id', referencedColumnName: 'id' }])
-  user: CurrentUserPayload;
+  user: Pick<User, 'id' | 'email'>;
 }

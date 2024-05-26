@@ -1,6 +1,6 @@
-import { Body, Controller, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 
-import { ApproveReportDto, CreateReportDto } from './dtos/reports.dto';
+import { ApproveReportDto, CreateReportDto, GetEstimateDto } from './dtos/reports.dto';
 import { ReportResponseDto } from './dtos/reports.response.dto';
 import { ReportsService } from './reports.service';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
@@ -10,12 +10,15 @@ import { AuthGuard } from '../common/guards/auth.guard';
 import { CurrentUserPayload } from '../common/interfaces/common.interface';
 
 @Controller('reports')
+@UseGuards(AuthGuard)
 @Serialize(ReportResponseDto)
 export class ReportsController {
   constructor(private readonly reportsService: ReportsService) {}
 
+  @Get()
+  getEstimate(@Query() query: GetEstimateDto) {}
+
   @Post()
-  @UseGuards(AuthGuard)
   createReport(@Body() body: CreateReportDto, @CurrentUser() user: CurrentUserPayload) {
     return this.reportsService.create(body, user);
   }

@@ -2,6 +2,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app.module';
+import { processEnv } from './common/constants';
 import { SuccessInterceptor } from './common/interceptors/sucess.interceptor';
 
 const cookieSession = require('cookie-session');
@@ -11,7 +12,7 @@ async function bootstrap() {
   app.use(
     cookieSession({
       name: 'session',
-      keys: ['asdfasdf'],
+      keys: [processEnv.COOKIE_KEY],
     }),
   );
   app.useGlobalPipes(
